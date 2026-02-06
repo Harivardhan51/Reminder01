@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.react-datepicker {
+  @apply border border-gray-300 rounded-xl shadow-lg;
+}
+.react-datepicker__day--outside-month {
+  @apply text-gray-300;
+}
+.react-datepicker__day--disabled {
+  @apply text-gray-200 cursor-not-allowed;
+}
+/* Optional: Add to your CSS for better calendar control */
+.react-datepicker {
+  width: 100% !important;
+  border: none !important;
+}
+
+.react-datepicker__month-container {
+  width: 100% !important;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: flex !important;
+  justify-content: space-around !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

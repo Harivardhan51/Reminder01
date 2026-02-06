@@ -1,0 +1,684 @@
+/* C:\Users\HP\reminder\src\components\Sidebar.css */
+
+/* ==================== CSS Variables ==================== */
+:root {
+  --sidebar-width: 280px;
+  --sidebar-mobile-width: 300px;
+  --hamburger-size: 50px;
+  
+  --primary-blue: #3b82f6;
+  --primary-purple: #8b5cf6;
+  --primary-green: #10b981;
+  --primary-red: #ef4444;
+  
+  --gradient-blue: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  
+  --border-color: #e2e8f0;
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ==================== Hamburger Button ==================== */
+.hamburger-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1100;
+  width: var(--hamburger-size);
+  height: var(--hamburger-size);
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  background: var(--gradient-primary);
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+  transition: all var(--transition-normal);
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+.hamburger-btn:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 3px;
+}
+
+/* Hamburger Icon Animation */
+.hamburger-box {
+  width: 24px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 24px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  position: absolute;
+  transition: all var(--transition-normal);
+}
+
+.hamburger-inner {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: '';
+  display: block;
+}
+
+.hamburger-inner::before {
+  top: -8px;
+}
+
+.hamburger-inner::after {
+  bottom: -8px;
+}
+
+/* Hamburger Active State - X Animation */
+.hamburger-btn.active .hamburger-inner {
+  background-color: transparent;
+}
+
+.hamburger-btn.active .hamburger-inner::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.hamburger-btn.active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/* ==================== Overlay ==================== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==================== Sidebar ==================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, #ffffff 0%, var(--bg-light) 100%);
+  border-right: 1px solid var(--border-color);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  overflow: hidden;
+}
+
+/* Desktop Sidebar */
+.sidebar.desktop {
+  transform: translateX(0);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Mobile Sidebar */
+.sidebar.mobile {
+  width: var(--sidebar-mobile-width);
+  max-width: 85vw;
+  transform: translateX(-100%);
+  box-shadow: none;
+}
+
+.sidebar.mobile.open {
+  transform: translateX(0);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* ==================== Sidebar Header ==================== */
+.sidebar-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+  flex-shrink: 0;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  flex-shrink: 0;
+}
+
+.logo-text h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-text span {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+/* ==================== Navigation ==================== */
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-section-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  padding: 0 16px;
+  margin-bottom: 12px;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  opacity: 0;
+  animation: slideIn 0.3s ease forwards;
+}
+
+.nav-item-static {
+  opacity: 1;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Navigation Links */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: 14px;
+}
+
+.nav-link:hover::before {
+  opacity: 1;
+}
+
+.nav-link:hover {
+  transform: translateX(4px);
+}
+
+/* Active State */
+.nav-link.active {
+  background: var(--gradient-blue);
+  color: white;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.nav-link.active::before {
+  display: none;
+}
+
+.nav-link.active:hover {
+  transform: translateX(4px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Nav Icon */
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.nav-link.blue .nav-icon {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.25) 100%);
+}
+
+.nav-link.purple .nav-icon {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.25) 100%);
+}
+
+.nav-link.active .nav-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Nav Label */
+.nav-label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+/* Nav Indicator */
+.nav-indicator {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-fast);
+}
+
+.nav-indicator svg {
+  width: 16px;
+  height: 16px;
+}
+
+.nav-link.active .nav-indicator {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==================== Logout Section ==================== */
+.logout-section {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.15) 100%);
+  color: var(--primary-red);
+  transform: translateX(4px);
+}
+
+.logout-btn:hover .logout-icon {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.3) 100%);
+}
+
+.logout-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.1) 0%, rgba(100, 116, 139, 0.15) 100%);
+  transition: all var(--transition-fast);
+}
+
+/* ==================== Sidebar Footer ==================== */
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background: linear-gradient(135deg, var(--bg-light) 0%, #f1f5f9 100%);
+  flex-shrink: 0;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.125rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-role {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--primary-green);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); 
+  }
+  50% { 
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.1); 
+  }
+}
+
+/* ==================== Responsive Adjustments ==================== */
+@media (max-width: 480px) {
+  .hamburger-btn {
+    top: 12px;
+    left: 12px;
+    width: 46px;
+    height: 46px;
+  }
+  
+  .hamburger-box {
+    width: 22px;
+    height: 18px;
+  }
+  
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 22px;
+    height: 2.5px;
+  }
+  
+  .hamburger-inner::before {
+    top: -7px;
+  }
+  
+  .hamburger-inner::after {
+    bottom: -7px;
+  }
+  
+  .sidebar.mobile {
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .sidebar-header {
+    padding: 16px;
+  }
+  
+  .logo-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+  
+  .logo-text h1 {
+    font-size: 1.1rem;
+  }
+  
+  .sidebar-nav {
+    padding: 16px 12px;
+  }
+  
+  .nav-link {
+    padding: 12px 14px;
+  }
+  
+  .nav-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+  
+  .sidebar-footer {
+    padding: 14px 16px;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .sidebar.mobile {
+    max-width: 280px;
+  }
+  
+  .logo-text span {
+    display: none;
+  }
+}
+
+/* ==================== Landscape Mobile ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .sidebar-header {
+    padding: 12px 16px;
+  }
+  
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .sidebar-nav {
+    padding: 12px;
+  }
+  
+  .nav-link {
+    padding: 10px 12px;
+  }
+  
+  .nav-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  
+  .sidebar-footer {
+    padding: 10px 16px;
+  }
+  
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ==================== Focus States ==================== */
+.hamburger-btn:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 3px;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+.logout-btn:focus-visible {
+  outline: 2px solid var(--primary-red);
+  outline-offset: 2px;
+}
+
+/* ==================== Reduced Motion ==================== */
+@media (prefers-reduced-motion: reduce) {
+  .hamburger-btn,
+  .sidebar,
+  .sidebar-overlay,
+  .nav-link,
+  .nav-indicator,
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after,
+  .logout-btn {
+    transition: none;
+  }
+  
+  .nav-item {
+    animation: none;
+    opacity: 1;
+  }
+  
+  .status-dot {
+    animation: none;
+  }
+}
+
+/* ==================== Print Styles ==================== */
+@media print {
+  .sidebar,
+  .hamburger-btn,
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
